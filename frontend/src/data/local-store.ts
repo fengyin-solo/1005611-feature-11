@@ -2,7 +2,8 @@ import { SEED_ROWS } from './seed'
 import type { EntryRow } from './types'
 
 // 本地持久化：数据放在 localStorage 里，刷新、关掉再打开都还在。
-const STORAGE_KEY = 'district-heating:entries'
+// 版本随水力平衡看板一并升到 v2：结构新增「批次」等字段，旧缓存直接作废重播种子。
+const STORAGE_KEY = 'district-heating:entries:v2'
 
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
