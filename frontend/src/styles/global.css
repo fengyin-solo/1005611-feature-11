@@ -35,3 +35,64 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .error-text { color: #b42318; }
 .status-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 10px; font-size: 12px; color: var(--muted); }
 .legend-item { background: #eef2f7; border-radius: 999px; padding: 2px 10px; }
+.legend-hot { background: #fde8e7; color: #b42318; font-weight: 600; }
+.legend-note { background: #e7f0fe; color: #1f4e9d; }
+
+/* 视图切换：回路看板与调节列表同源 */
+.view-tabs { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; border-bottom: 1px solid var(--border); }
+.tab-btn { border: none; background: none; padding: 8px 14px; font-size: 13px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab-btn.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 600; }
+.tab-source-note { margin-left: auto; font-size: 12px; color: var(--muted); }
+
+/* 回路看板 */
+.board-wrap { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px; overflow-x: auto; }
+.board-table { width: 100%; border-collapse: separate; border-spacing: 6px; }
+.board-table th, .board-table td { vertical-align: top; }
+.board-table thead th { text-align: left; font-size: 13px; padding: 4px 6px; min-width: 168px; white-space: nowrap; }
+.board-station-col { position: sticky; left: 0; background: #f6f8fb; z-index: 2; min-width: 148px !important; border-radius: 6px; }
+.loop-hot-col { color: #b42318; }
+.hot-flag { display: inline-block; background: #b42318; color: #fff; font-size: 11px; border-radius: 4px; padding: 0 6px; margin-right: 6px; font-weight: 500; }
+.station-badge { display: inline-block; min-width: 18px; text-align: center; background: #b42318; color: #fff; border-radius: 999px; font-size: 11px; padding: 0 5px; margin-right: 4px; }
+
+.loop-card { border: 1px solid var(--border); border-left-width: 4px; border-radius: 8px; padding: 8px 10px; background: #fff; }
+.loop-card.loop-recheck { border-left-color: #d92d20; background: #fffbfa; }
+.loop-card.loop-pending { border-left-color: #f79009; background: #fffdf8; }
+.loop-card.loop-working { border-left-color: #1f6feb; background: #f8fbff; }
+.loop-card.loop-balanced { border-left-color: #12b76a; background: #f7fef9; }
+.loop-status { font-size: 12px; font-weight: 600; color: #344054; }
+.loop-recheck .loop-status { color: #b42318; }
+.loop-metrics { margin: 6px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; }
+.loop-metrics div { display: flex; justify-content: space-between; gap: 6px; font-size: 12px; }
+.loop-metrics dt { color: var(--muted); margin: 0; }
+.loop-metrics dd { margin: 0; font-weight: 600; white-space: nowrap; }
+.loop-maint { margin: 0 0 4px; font-size: 11px; color: #b54708; }
+.loop-actions { display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px dashed var(--border); padding-top: 6px; }
+.loop-empty { width: 100%; min-height: 74px; border: 1px dashed var(--border); border-radius: 8px; background: #fafbfc; color: var(--muted); cursor: pointer; font-size: 12px; }
+.loop-empty:hover { border-color: var(--brand); color: var(--brand); }
+.board-empty { padding: 28px 0; }
+
+.status-pill { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12px; background: #eef2f7; }
+.status-pill.loop-recheck { background: #fde8e7; color: #b42318; }
+.status-pill.loop-pending { background: #fef4e5; color: #b54708; }
+.status-pill.loop-working { background: #e7f0fe; color: #1f4e9d; }
+.status-pill.loop-balanced { background: #e6f8ef; color: #067647; }
+
+/* 报送弹窗 */
+.modal-mask { position: fixed; inset: 0; background: rgba(16, 24, 40, 0.45); display: flex; align-items: center; justify-content: center; z-index: 50; }
+.modal-card { width: 640px; max-width: calc(100vw - 32px); background: #fff; border-radius: 10px; padding: 16px 18px; box-shadow: 0 18px 48px rgba(16, 24, 40, 0.25); }
+.modal-head { display: flex; justify-content: space-between; align-items: center; }
+.modal-head h3 { margin: 0; font-size: 15px; }
+.modal-close { font-size: 12px; }
+.modal-hint { margin: 8px 0; font-size: 12px; color: #1f4e9d; background: #e7f0fe; border-radius: 6px; padding: 6px 10px; }
+.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+.form-item span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+.form-item input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font-size: 13px; }
+.form-item input:focus { outline: 2px solid rgba(31, 111, 235, 0.25); border-color: var(--brand); }
+.form-error { margin: 10px 0 0; font-size: 12px; }
+.modal-foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+
+/* 复调驱动保养清单 */
+.driven-box { background: #fff8f6; border: 1px solid #f4d6d1; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; }
+.driven-head h3 { margin: 0 0 2px; font-size: 14px; color: #b42318; }
+.driven-note { font-size: 12px; color: var(--muted); }
+.driven-box .data-table { margin-top: 8px; }

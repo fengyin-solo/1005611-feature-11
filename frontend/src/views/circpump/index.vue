@@ -24,6 +24,38 @@
       </span>
     </p>
 
+    <section v-if="drivenRows.length" class="driven-box">
+      <header class="driven-head">
+        <h3>复调驱动保养清单</h3>
+        <span class="driven-note">由水力平衡「需复调」回路的复调结果自动列入，同一换热站同一回路重复报送只记一条。</span>
+      </header>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>泵编号（保养单）</th>
+            <th>所属换热站</th>
+            <th>关联调节回路</th>
+            <th>触发调节单</th>
+            <th>列入日期</th>
+            <th>当前状态</th>
+            <th>处理</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="row in drivenRows" :key="String(row.id)">
+            <td>{{ row['泵编号'] }}</td>
+            <td>{{ row['所属换热站'] }}</td>
+            <td>{{ row['关联回路'] }}</td>
+            <td>{{ row['触发调节单'] ?? '—' }}</td>
+            <td>{{ row['上次保养日'] ?? '—' }}</td>
+            <td>{{ row.status }}</td>
+            <td class="row-actions">
+              <button class="link" type="button" @click="runAction('完成保养', row)">完成保养</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
     <form class="filter-bar" @submit.prevent="reload">
       <label v-for="field in filterFields" :key="field" class="filter-item">
         <span>{{ field }}</span>
@@ -79,6 +111,7 @@ import {
   moduleMeta,
   runAction as applyAction,
 } from '@/api/local-service'
+import { drivenMaintenanceRows } from '@/api/hydraulic-service'
 import type { EntryRow } from '@/data/types'
 
 const meta = moduleMeta('circpump')
@@ -92,6 +125,8 @@ const total = ref(0)
 const errorMessage = ref('')
 const filters = ref<Record<string, string>>({})
 const filterFields = columns.slice(0, 3)
+// 水力平衡复调结果驱动过来的保养清单，与下方列表同源（同一份循环泵记录）。
+const drivenRows = ref<EntryRow[]>([])
 const statusSummary = computed(() =>
   statuses.map((status: string) => ({
     status,
@@ -128,6 +163,7 @@ function reload() {
     const payload = listEntries(meta.key, filters.value)
     rows.value = payload.items
     total.value = payload.total
+    drivenRows.value = drivenMaintenanceRows()
   } catch (error) {
     errorMessage.value = error instanceof Error ? error.message : '循环泵运维列表读取失败'
   }
